@@ -1,0 +1,352 @@
+/* public/css/style.css */
+:root {
+    --primaryColor: white;
+    --secendColor: black;
+}
+/* Navbar Styles */
+.navbar {
+    background-color: transparent;
+    color: var(--secendColor);
+    padding: 10px 20px;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.navbar-logo {
+    color: var(--secendColor);
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li {
+    margin-left: 20px;
+}
+
+.navbar-menu a {
+    color: var(--secendColor);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar-menu a:hover {
+    color: #f4f4f4;
+    text-decoration: underline;
+}
+
+/* Create Project Button Styles */
+.btn-create-project {
+    background-color: #fbffb4; /* Green color */
+    color: var(--secendColor);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid var(--secendColor);
+    font-size: 16px;
+    transition: all 0.5s ease-in-out;
+}
+.waitProjects {
+    animation: projects 1s infinite ease-in-out;
+}
+
+@keyframes projects {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.btn-all-projects {
+    margin: 2rem auto 0 auto;
+}
+.contentProjects {
+    display: none;
+}
+.hideAllProjects {
+    display: block;
+}
+/* Custom CSS for Search Bar */
+.search-bar {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar .form-control {
+    border-radius: 20px 0 0 20px; /* Rounded left corners */
+}
+
+.search-bar .btn {
+    border-radius: 0 20px 20px 0; /* Rounded right corners */
+    border-left: none; /* Remove double border */
+}
+
+.search-icone {
+    background-color: var(--secendColor);
+    color: var(--primaryColor);
+    border-radius: 20px;
+}
+.inp-search {
+    padding: 1rem 4rem;
+    border-radius: 20px;
+}
+/* Rotate the icon on hover */
+.search-icone {
+    transition: transform 0.5s ease; /* Smooth transition */
+}
+
+.search-icone:hover {
+    transform: translate(10px, 0px); /* Rotate 360 degrees */
+    background-color: #fbffb4;
+}
+
+.btn-create-project:hover {
+    background-color: yellow;
+    transform: skew(-8deg);
+    border: none;
+    box-shadow: 0px 10px 30px rgba(255, 215, 0, 0.6);
+    color: #343200;
+    cursor: pointer;
+}
+
+.btn-create-project i {
+    font-size: 20px;
+}
+
+.content-home {
+    border-radius: 30px;
+    border: 1px solid var(--secendColor);
+    margin-top: 5rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.add-project,
+.close-modal {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 0px 10px lightcyan;
+    transition: 0.4s;
+}
+.add-project {
+    background-color: yellow;
+    color: var(--secendColor);
+    border: 1px solid var(--secendColor);
+}
+.close-modal {
+    background-color: red;
+    color: white;
+}
+.add-project:hover {
+    background-color: yellow;
+    color: var(--secendColor);
+}
+.close-modal:hover {
+    background-color: red;
+}
+.add-project:hover,
+.close-modal:hover {
+    transform: skew(-8deg);
+}
+
+/* --------------------  Message add Project succes  ---------------------- */
+/* public/css/style.css */
+
+/* Message Container Styles */
+#messageContainer {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* public/css/style.css */
+
+/* Animation for message */
+@keyframes slideIn {
+    from {
+        top: -50px;
+    }
+    to {
+        top: 20px;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        top: 20px;
+    }
+    to {
+        top: -50px;
+    }
+}
+
+#messageContainer {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+#messageContainer.hide {
+    animation: slideOut 0.5s ease-out forwards;
+}
+
+/* public/css/style.css */
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    color: #555;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+.delete-project-ss {
+    color: red;
+}
+#delete-project-ss:hover {
+    background-color: #ffe4e4;
+    color: red;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.btn-addTask-home {
+    background-color: yellow;
+    color: var(--secendColor);
+    border-radius: 15px;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--secendColor);
+}
+
+.btn-addTask-home:hover {
+    background-color: black;
+}
+
+.encours-section-task {
+    background-color: #fffdd3;
+}
+
+.afaire-section-task {
+    background-color: #e4e5ff;
+}
+
+.terminer-section-task {
+    background-color: #d1fbc9;
+}
+
+/* Three-dot menu styles */
+.dropdown-toggle::after {
+    display: none; /* Hide the default dropdown arrow */
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown:hover {
+    background-color: #ddd;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.dropdown ul {
+    border-radius: 20px;
+    padding: 0.2rem;
+    width: 10%;
+}
+.dropdown ul li button {
+    border-radius: 15px;
+    font-size: 17px;
+    border: none;
+    background-color: transparent;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.dropdown ul li button:hover {
+    background-color: #f0efef;
+}
+#delete-task {
+    color: red;
+}
+#delete-task:hover {
+    background-color: #ffe4e4;
+}
+
+.card-top-task {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-tsks-project {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#btn-add-tasks {
+    transition: 1s;
+}
+#btn-add-tasks:hover {
+    transform: rotate(360deg);
+    border: 2px;
+}
