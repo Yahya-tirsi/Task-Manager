@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -33,11 +33,19 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
+
+
+
     protected function casts(): array
     {
         return [

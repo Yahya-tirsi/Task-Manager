@@ -14,22 +14,25 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    public function store(Request $request, Project $project)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'project_id' => 'required|exists:projects,id',
         ]);
 
-        $task = new Task($validatedData);
-        $project->tasks()->save($task);
+        Task::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'project_id' => $validatedData['project_id'],
+        ]);
 
-        return response()->json([
-            'task' => $task
-        ], 201);
+        return back()->with('message', '🎉 Task created successfully!');
     }
 
-    public function store2(Request $request, Project $project){
+    public function store2(Request $request, Project $project)
+    {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',

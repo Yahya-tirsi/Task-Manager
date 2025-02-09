@@ -3,6 +3,14 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('message'))
+    <div id="messageContainer">
+        <p id="messageText">{{ session('message') }}</p>
+    </div>
+@endif
+
+
+
 <div class="content-home">
     <h1>Welcome to the Task Management System</h1>
     <p>This is the home page of your task management application.</p>
@@ -22,8 +30,12 @@
     </div>
 </div>
 
-<button class="btn-create-project btn-all-projects" onclick="showProjects()"> <span id="changeTextbtnprojects"><i
-            class="bi bi-arrow-down"></i> All projects</span></button>
+<div class="div-btn-search">
+    <button class="btn-create-project" id="btn-all-projects" onclick="showProjects()"> <span
+            id="changeTextbtnprojects"><i class="bi bi-arrow-down"></i> All projects</span></button>
+</div>
+
+
 
 <!-- Projects Section -->
 <div class="container my-5" id="contentProjects">
@@ -38,31 +50,38 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addTaskModalLabel{{ $project->id }}">Add Task to {{ $project->name }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="addTaskModalLabel{{ $project->id }}">
+                        Ajouter une tâche à {{ $project->name }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addTaskForm{{ $project->id }}" action="{{ route('tasks.store', $project) }}" method="POST">
+                    <form method="POST" action="{{ route('tasks.store', ['project' => $project->id]) }}">
                         @csrf
+                        <input type="hidden" name="project_id" value="{{ $project->id }}">
+
                         <div class="mb-3">
-                            <label for="taskName{{ $project->id }}" class="form-label">Task Name</label>
+                            <label for="taskName{{ $project->id }}" class="form-label">Nom de la tâche</label>
                             <input type="text" class="form-control" id="taskName{{ $project->id }}" name="name" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="taskDescription{{ $project->id }}" class="form-label">Description</label>
                             <textarea class="form-control" id="taskDescription{{ $project->id }}" name="description"
                                 rows="3"></textarea>
                         </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Ajouter la tâche</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="addTaskForm{{ $project->id }}" class="btn btn-primary">Add Task</button>
                 </div>
             </div>
         </div>
     </div>
 @endforeach
+
 
 <!-- Update Project Modal -->
 <div class="modal fade" id="updateProjectModal" tabindex="-1" aria-labelledby="updateProjectModalLabel"
@@ -118,6 +137,7 @@
 </div>
 
 
+
 <script>
     let currentProjectId = null;
 
@@ -131,7 +151,7 @@
             .then(response => response.json())
             .then((data) => {
                 console.log(data);
-                
+
                 const divProjects = document.getElementById("contentProjects").querySelector(".row");
 
                 if (data.length <= 0) {
@@ -166,7 +186,10 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${item.id}">
                                                     <li><a class="dropdown-item" href="/projects/${item.id}/tasks"><i class="bi bi-eye-fill"></i> View Tasks</a></li>
-                                                    <li><a class="dropdown-item" id="delete-project-ss" onclick="deleteProject(${item.id})"><i class="bi bi-trash3"></i> Supprimer</a></li>
+                                                    <li><button id="delete-task" type="button"
+                                                        onclick="deleteProject(${item.id}, '${item.name}')">
+                                                        <i class="bi bi-trash me-2"></i> Delete
+                                                    </button></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -174,7 +197,7 @@
                                         <small class="text-muted">Created at: ${new Date(item.created_at).toLocaleString()}</small>
 
                                         <button class="btn btn-primary btn-sm btn-addTask-home" data-bs-toggle="modal"
-                                            data-bs-target="#addTaskModal${item.id}" onclick="addTask(${item.id})">
+                                            data-bs-target="#addTaskModal${item.id}">
                                             <i class="bi bi-plus"></i> Add Task
                                         </button>
                                     </div>
@@ -213,35 +236,39 @@
             });
     }
 
-    function deleteProject(projectId) {
-        if (!confirm("Voulez-vous vraiment supprimer ce projet ?")) {
-            return;
-        }
+    // function deleteProject(projectId) {
+    //     if (!confirm("Voulez-vous vraiment supprimer ce projet ?")) {
+    //         return;
+    //     }
 
-        fetch(`/projects/${projectId}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json'
-            },
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la suppression');
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert('Projet supprimé avec succès !');
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Erreur :', error);
-                alert('Impossible de supprimer le projet.');
-            });
-    }
+    //     fetch(`/projects/${projectId}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    //             'Accept': 'application/json'
+    //         },
+    //     })
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Erreur lors de la suppression');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(data => {
+    //             alert('Projet supprimé avec succès !');
+    //             window.location.reload();
+    //         })
+    //         .catch(error => {
+    //             console.error('Erreur :', error);
+    //             alert('Impossible de supprimer le projet.');
+    //         });
+    // }
+
+
 
     // Function to handle the update form submission
+    
+    
     document.getElementById('updateProjectForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -305,42 +332,59 @@
         }, 1500);
     }
 
-    function addTask(projectId) {
+    function addTask(event, projectId) {
+        event.preventDefault();
+
         const form = document.getElementById(`addTaskForm${projectId}`);
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); 
+        const formData = new FormData(form);
 
-            const formData = new FormData(form);
+        fetch(`/projects/${projectId}/tasks`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
 
-            fetch(`/projects/${projectId}/tasks`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                },
-                body: formData
+                const messageContainer = document.getElementById('messageContainer');
+                const messageText = document.getElementById('messageText');
+                messageText.innerHTML = '🎉 Task created successfully!';
+                messageContainer.classList.remove('d-none');
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById(`addTaskModal${projectId}`));
+                modal.hide();
+
+                form.reset();
+
+                setTimeout(() => {
+                    messageContainer.classList.add('d-none');
+                }, 3000);
             })
-                .then(response => response.json())
-                .then(data => {
-
-                    const messageContainer = document.getElementById('messageContainer');
-                    const messageText = document.getElementById('messageText');
-                    messageText.innerHTML = '🎉 Task created successfully!';
-                    messageContainer.classList.remove('d-none');
-
-                    const modal = bootstrap.Modal.getInstance(document.getElementById(`addTaskModal${projectId}`));
-                    modal.hide();
-
-                    setTimeout(() => {
-                        messageContainer.classList.add('d-none');
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                });
-        });
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
     }
+
+
+    // Function to open the delete project modal
+    function deleteProject(projectId, projectName) {
+        currentProjectId = projectId;
+        console.log(projectId, projectName);
+        
+
+        const modal = new bootstrap.Modal(document.getElementById('deleteProjectModal'));
+        document.getElementById("project-id-name").innerHTML = projectName;
+        modal.show();
+    }
+
+
+    setTimeout(() => {
+        document.getElementById("messageContainer").classList.add('d-none');
+    }, 3000);
 
 </script>
 @endsection

@@ -5,8 +5,8 @@
 
     <!-- Message succes -->
     @if (session("succes"))
-        <div id="messageContainer" class="alert alert-success" role="alert">
-            {{session("succes")}}
+        <div id="messageContainer">
+            <p id="messageText">{{session("succes")}}</p>
         </div>
     @endif
 
@@ -72,7 +72,9 @@
         <div class="col-md-4">
             <div class="card encours-section-task">
                 <div class="card-header encours-section-task">
-                    Encours
+                    <span class="encour-sec">
+                        <div id="encours-animation"></div> <b> Encours</b>
+                    </span>
                 </div>
                 <div class="card-body" id="encours" ondrop="drop(event, 'Encours')" ondragover="allowDrop(event)">
                     @foreach ($tasks as $task)
@@ -199,7 +201,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="updateTaskForm" class="btn btn-primary" >Update Task</button>
+                    <button type="submit" form="updateTaskForm" class="btn btn-primary">Update Task</button>
                 </div>
             </div>
         </div>
@@ -237,8 +239,8 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="addTaskForm{{ $project->id }}" action="{{ route('tasks.store', $project) }}"
-                        method="POST">
+                    <form id="addTaskForm{{ $project->id }}"
+                        action="{{ route('tasks.store', ['project' => $project->id]) }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="projectName" class="form-label">Task Name</label>
@@ -439,5 +441,20 @@
                 alert('Failed to update task status. Please try again.');
             });
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the success message container exists
+        const messageContainer = document.getElementById('messageContainer');
+
+        if (messageContainer) {
+            setTimeout(function () {
+                messageContainer.style.display = 'none';
+            }, 3000);
+        }
+    });
+
+
+
+
 </script>
 @endsection

@@ -21,11 +21,16 @@ class ProjectController extends Controller
                 'description' => 'nullable|string',
             ]);
 
-            $project = Project::create($validatedData);
+            $project = Project::create([
+                'name' => $validatedData['name'],
+                'description' => $validatedData['description'],
+                'user_id' => auth()->id(),
+            ]);
 
             return response()->json([
                 'project' => $project
             ], 201);
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Return JSON response for validation errors
             return response()->json([
@@ -76,7 +81,7 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         $project->delete();
-    
+
         return response()->json(['message' => 'Projet supprimé avec succès']);
     }
 
@@ -91,7 +96,9 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::all();
+        $user = auth()->user();
+        $projects = $user->projects()->get();
+
         return response()->json([
             'project' => $projects
         ], 201);

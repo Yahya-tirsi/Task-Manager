@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -23,6 +25,7 @@ Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('p
 Route::get('/projects/{project}/tasks', [TaskController::class, 'index'])->name('tasks.index');
 
 Route::post('/projects/{project}/tasks', [TaskController::class, 'store'])->name('tasks.store');
+Route::post('/projects/{project}/tasks', [TaskController::class, 'store2'])->name('tasks.store');
 
 // Route to update task status
 Route::put('/tasks/{task}/update-status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
@@ -38,3 +41,15 @@ Route::get('/allprojects', [ProjectController::class, 'index'])->name("projects.
 
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 
+// Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+
+
+// Authentication Routes
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

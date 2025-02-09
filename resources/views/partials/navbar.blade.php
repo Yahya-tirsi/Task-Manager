@@ -20,7 +20,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Form for creating a project -->
                 <form id="createProjectForm">
                     <div class="mb-3">
                         <label for="projectName" class="form-label">Project Name</label>
@@ -72,8 +71,6 @@
                 return response.json();
             })
             .then(data => {
-                console.log('Project created:', data);
-
                 document.getElementById('projectName').value = "";
                 document.getElementById('projectDescription').value = "";
 
