@@ -8,7 +8,7 @@ use App\Http\Controllers\TaskController;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/home', function () {
     $projects = App\Models\Project::all();
     return view('welcome', compact('projects'));
 });
@@ -23,7 +23,7 @@ Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->nam
 Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
 Route::get('/projects/{project}/tasks', [TaskController::class, 'index'])->name('tasks.index');
-
+// Route::get('/projects/{project}/tasks', [TaskController::class, 'index'])->name('projects.tasks.index');
 Route::post('/projects/{project}/tasks', [TaskController::class, 'store'])->name('tasks.store');
 Route::post('/projects/{project}/tasks', [TaskController::class, 'store2'])->name('tasks.store');
 
@@ -41,13 +41,12 @@ Route::get('/allprojects', [ProjectController::class, 'index'])->name("projects.
 
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 
-// Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-
-
+// Get tasks for each project
+Route::get("/tasks/project/index", [TaskController::class, "tsksProject"])->name("tasks.project.index");
 
 // Authentication Routes
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/', [RegisterController::class, 'register']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);

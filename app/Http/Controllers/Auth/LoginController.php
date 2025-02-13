@@ -29,7 +29,7 @@ class LoginController extends Controller
             return view('welcome', compact("users", "projects"))->with('success', 'Login successful!');
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+        return back()->withErrors(['email' => 'Invalid email!', 'password' => 'Invalid password!'])->withInput();
     }
 
     public function logout()

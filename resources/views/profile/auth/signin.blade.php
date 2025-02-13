@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                            <label for="email" class="form-label">Email Address</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -32,10 +32,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary btn-projects">
                                 {{ __('Login') }}
                             </button>
                         </div>
+                        <p>I don't have an acount <a href="/">Sign Up here</a></p>
                     </form>
                 </div>
             </div>

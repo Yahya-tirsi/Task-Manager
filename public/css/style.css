@@ -295,10 +295,19 @@
     width: 100%;
     padding: 0.5rem;
     border: 1px solid var(--secendColor);
+    margin-top: 1rem;
+    transition: 0.3s;
+}
+
+.link-view-all-tasks{
+    font-size: 19px;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 .btn-addTask-home:hover {
     background-color: black;
+    color: white;
 }
 
 .encours-section-task {
@@ -398,4 +407,78 @@
 .btn-logout:hover{
     transform: rotate(360deg);
     background-color: #FADCE4;
+}
+
+.div-register{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 1.5rem;
+}
+
+.btn-register{
+    background-color: yellow;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 3rem;
+    transition: 0.3s;
+}
+
+.btn-register:hover{
+    box-shadow: 0px 0px 30px yellow;
+}
+
+.container-projects{
+    position: relative;
+    z-index: 1000;
+}
+
+.top-card-projects{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bell-notification {
+    position: relative; 
+    color: black;
+    background-color: yellow;
+    font-size: 18px;
+    border-radius: 30px;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s; 
+}
+.count-tasks{
+    position: absolute;
+    top: -25px;
+    right: 24px;
+    padding: 0.5rem 2rem;
+    background-color: black;
+    color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    text-align: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.count-tasks-notification {
+    position: absolute;
+    top: -10px; 
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+}
+
+.bell-notification:hover .count-tasks {
+    transform: translate(0px, -33px);
+    opacity: 1;
 }

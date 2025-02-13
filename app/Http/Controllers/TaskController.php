@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
@@ -86,4 +87,13 @@ class TaskController extends Controller
 
         return response()->json(['message' => 'Task status updated successfully']);
     }
+
+    public function tsksProject()
+    {
+        $tasks = Task::all();
+        return response()->json(
+            $tasks
+        );
+    }
+
 }

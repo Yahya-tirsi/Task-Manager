@@ -2,7 +2,7 @@
 
 <nav class="navbar">
     <div class="navbar-container">
-        <a href="{{ url('/') }}" class="navbar-logo">Task Manager</a>
+        <a href="{{ url('/home') }}" class="navbar-logo">Task Manager</a>
         <!-- Update the button to trigger the modal -->
         <button type="button" class="btn-create-project" data-bs-toggle="modal" data-bs-target="#createProjectModal">
             <i class="bi bi-plus-lg"></i> Create Project
@@ -42,9 +42,9 @@
 </div>
 
 <!-- Projects -->
- <div class="container-projects">
-    
- </div>
+<div class="container-projects">
+
+</div>
 
 <script>
     document.getElementById('createProjectForm').addEventListener('submit', function (event) {
@@ -77,7 +77,7 @@
                 const messageContainer = document.getElementById('messageContainer');
                 const messageText = document.getElementById('messageText');
                 messageText.innerHTML = '🎉 Project created successfully!';
-                messageContainer.classList.remove('d-none'); 
+                messageContainer.classList.remove('d-none');
 
                 const modal = bootstrap.Modal.getInstance(document.getElementById('createProjectModal'));
                 modal.hide();

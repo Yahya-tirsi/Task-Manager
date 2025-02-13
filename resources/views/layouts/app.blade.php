@@ -1,5 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +19,7 @@
         <p id="messageText"></p>
     </div>
 
-    <a href="/logout"> <button class="btn-logout" title="Logout"><i
-                class="bi bi-box-arrow-left"></i></button>
+    <a href="/logout"> <button class="btn-logout" title="Logout"><i class="bi bi-box-arrow-left"></i></button>
     </a>
 
     <div class="container">
