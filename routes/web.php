@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -43,6 +44,10 @@ Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show')
 
 // Get tasks for each project
 Route::get("/tasks/project/index", [TaskController::class, "tsksProject"])->name("tasks.project.index");
+
+
+Route::put('/password/update', [PasswordController::class, 'update'])->name('password.update');
+
 
 // Authentication Routes
 Route::get('/', [RegisterController::class, 'showRegistrationForm'])->name('register');

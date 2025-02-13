@@ -1,5 +1,3 @@
-<!-- resources/views/welcome.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
@@ -10,11 +8,10 @@
     @endif
 
 
-
     <div class="content-home">
         <h1>Welcome to the Task Management System</h1>
         <p>This is the home page of your task management application.</p>
-        <!-- Search Bar -->
+
         <div class="container mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-6">
@@ -343,13 +340,13 @@
                 });
         });
 
-        // Show and hide all projects
+        // Show all projects
         function showProjects() {
             const changeTextbtnprojects = document.getElementById("changeTextbtnprojects");
             const contentProjects = document.getElementById("contentProjects");
             setTimeout(() => {
                 changeTextbtnprojects.innerHTML = "<div class='waitProjects'><i class='bi bi-hourglass-bottom'></i></div>";
-            }, 500);
+            }, 100);
             setTimeout(() => {
                 handleSearch();
                 changeTextbtnprojects.innerHTML = "<i class='bi bi-arrow-down' ></i > All projects";

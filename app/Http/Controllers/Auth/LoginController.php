@@ -29,12 +29,12 @@ class LoginController extends Controller
             return view('welcome', compact("users", "projects"))->with('success', 'Login successful!');
         }
 
-        return back()->withErrors(['email' => 'Invalid email!', 'password' => 'Invalid password!'])->withInput();
+        return back()->withErrors(['email' => 'Invalid email!', 'password' => 'Invalid password!']);
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Logged out successfully!');
+        return redirect()->route('login');
     }
 }
